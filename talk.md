@@ -4,6 +4,9 @@
 
 # Overview
 
+* Exploration in the console, using Node 5
+* Prereqs: install with `npm install esprima`
+
 
 # Credits!
 
@@ -11,6 +14,11 @@
   - Judgment forms to define operational semantics
   - Expressed on Scala
 * Modified for this talk to be in terms of unit tests and JavaScript
+
+# EcmaScript 6
+
+* Supported by Chrome 46, Firefox FIXME, Edge FIXME, Node 5
+* Get to use `let`, `const`, other fun functionality
 
 # Related projects
 
@@ -29,7 +37,24 @@ FIXME - something simple like math
 
 FIXME ASTs look like the document object model (DOM), but for the program/script itself
 
+# ASTs are just plain old objects
+
+FIXME which means you can create your own ASTs as well! we will see this become important soon
+
+FIXME maybe cover interfaces?
+
+
+
+# TDD
+
 # Recursion
+
+* ASTs are made up of ASTs
+* Corresponding to expressions
+* So evaluate the parts, then the whole
+* etc
+
+# Evaluating functions
 
 
 # ASTs in JavaScript
@@ -172,6 +197,13 @@ us to describe precisely each execution step as a reduction:
 
 * choice of assertions
 * test discovery
+
+
+
+# Assertion test framework
+
+Maybe just use https://nodejs.org/api/assert.html ? FIXME especially matchers like `assert.deepStrictEqual`
+
 
 # FIXME specific tool to be used in JS
 
