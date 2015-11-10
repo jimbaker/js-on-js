@@ -4,6 +4,14 @@
 
 # Overview
 
+
+# Credits!
+
+* JavaScript interpreter, written for labs developed by Evan Chang at Univ of Colorado, Boulder
+  - Judgment forms to define operational semantics
+  - Expressed on Scala
+* Modified for this talk to be in terms of unit tests and JavaScript
+
 # Related projects
 
 * Sandboxing with [JS in JS](https://sns.cs.princeton.edu/2012/04/javascript-in-javascript-js-js-sandboxing-third-party-scripts/)
@@ -19,12 +27,72 @@
 
 FIXME - something simple like math
 
+FIXME ASTs look like the document object model (DOM), but for the program/script itself
+
+# Recursion
+
+
 # ASTs in JavaScript
 
 * How to produce
 * What do they mean?
 
+# Use Esprima
+
+```javascript
+const esprima = require('esprima')
+```
+
+* Note the use of `const` - we are using EcmaScript 6!
+* Can still override in the console (FIXME can we require let/const/var?)
+
 # AST of an expression
+
+The body of a program is a sequence of statements:
+
+```
+> esprima.parse('6 * 7')
+{ type: 'Program',
+  body: [ { type: 'ExpressionStatement', expression: [Object] } ],
+  sourceType: 'script' }
+```
+
+NB: the program is captured! so you have to cut things out
+
+# Use `JSON.stringify`
+
+```
+console.log(JSON.stringify(esprima.parse('6*7'), null, '  '))
+```
+
+# Complete AST
+
+```
+> console.log(JSON.stringify(esprima.parse('6*7'), null, '  '))
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "BinaryExpression",
+        "operator": "*",
+        "left": {
+          "type": "Literal",
+          "value": 6,
+          "raw": "6"
+        },
+        "right": {
+          "type": "Literal",
+          "value": 7,
+          "raw": "7"
+        }
+      }
+    }
+  ],
+  "sourceType": "script"
+}
+```
 
 # AST of an anonymous function being defined
 
@@ -34,16 +102,67 @@ FIXME describe how they rock
 
 # AST combined
 
-function (x) { ... } (6 * 7)
+A simple function:
 
+```
+(function(x) { return x * 7 })(6)
+```
+
+# Parsing
+
+Parsed:
+
+```
+x = esprima.parse('(function(x) { return x * 7 })(6)')
+```
+
+# What are functions anyway?
+
+FIXME (encapsulated code that be executed repeatedly; may be named, or just have a reference)
+
+# Built-in `eval` function
+
+```
+> eval('6 * 7')
+42
+```
+
+# More complex usage
+
+```
+> eval('(function(x) { return x * 7 })(6)')
+42
+```
+
+# Why do we need `eval`?
+
+# When should we not use `eval`?
+
+Cross-site scripting) (XSS) attacks!
+
+# Writing our own `eval` function
+
+> ast.body[0].expression
+{ type: 'BinaryExpression',
+  operator: '*',
+  left: { type: 'Literal', value: 6, raw: '6' },
+  right: { type: 'Literal', value: 7, raw: '7' } }
+> function myeval(expr) { if (expr.operator === '*') { return expr.left.value * expr.right.value } }
+undefined
+> eval(ast.body[0].expression)
+42
+
+# Interpreter
+
+Proceed by rewriting AST to another AST - presumably simpler! FIXME
 
 # Operational semantics
 
-We are going to choose big-step for simplicity, but small-step allows us to describe precisely each execution step as a reduction:
+We are going to choose big-step for simplicity, but small-step allows
+us to describe precisely each execution step as a reduction:
 
 * Big step semantics
 * Small step semantics
-
 
 # Judgment form
 
@@ -79,3 +198,5 @@ Name bindings, expression evaluation
 Can simplify further these ideas... But this is not a theory course condensed into one hour...
 
 # GitHub and tracking commits
+
+FIXME do this? or just demo away?
