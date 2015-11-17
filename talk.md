@@ -179,15 +179,42 @@ undefined
 
 # Interpreter
 
-Proceed by rewriting AST to another AST - presumably simpler! FIXME
+Proceed by rewriting AST to another AST - presumably simpler! FIXME this is what we mean by reductions; small step semantics clarify what we get; big step semantics are reasonable here too
 
 # Operational semantics
+
+* Describes the execution of a program
+* Evaluation - successively reduce a program AND its input into a result, plus possible side effects
+* Side effects - probably what most of you care about!
+
+# Interpretation vs compilation
+
+* Interpreters directly work with source ASTs
+
+* Specifically transformation of an AST into another AST - we call that interpreting
+
+# Equivalent idea
+
+Unit testing!
+
+Just a fancy way of stating: we care about the execution of a program (vs thinking about 
 
 We are going to choose big-step for simplicity, but small-step allows
 us to describe precisely each execution step as a reduction:
 
 * Big step semantics
 * Small step semantics
+
+# Command line interpreter
+
+Desired goal: be able to run
+
+`$ jsonjs foo.js`
+
+# Modular too
+
+* Can require jsonjs, try it out
+* With AST
 
 # Judgment form
 
@@ -198,11 +225,20 @@ us to describe precisely each execution step as a reduction:
 * choice of assertions
 * test discovery
 
+# Possibilities
+
+https://facebook.github.io/jest/
 
 
 # Assertion test framework
 
 Maybe just use https://nodejs.org/api/assert.html ? FIXME especially matchers like `assert.deepStrictEqual`
+
+Let's use http://chaijs.com/api/assert/ - more assertions!
+
+# Test discovery
+
+Mocha; see http://mochajs.org/#installation etc
 
 
 # FIXME specific tool to be used in JS
@@ -228,6 +264,20 @@ Not today - we already have a parser, let's move on
 Name bindings, expression evaluation
 
 Can simplify further these ideas... But this is not a theory course condensed into one hour...
+
+# When writing unit tests
+
+Write the simplest ones possible
+Covering especially edge cases (maybe not so simple after all)
+
+# Bindings
+
+Test binding `x`
+
+throw `ReferenceError: x is not defined`
+
+
+
 
 # GitHub and tracking commits
 
