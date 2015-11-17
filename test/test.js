@@ -2,11 +2,25 @@ const assert = require('assert'),
       esprima = require('esprima'),
       jsonjs = require('../lib')
 
-function parse_expr(text) {
+function parse_expr(text, do_log) {
   var expr = esprima.parse(text)
-  // console.log("expr", JSON.stringify(expr, null, '  '))
+  if (do_log) {
+    console.log("expr", JSON.stringify(expr, null, '  '))
+  } 
   return expr
 }
+
+describe('nonexistence', function() {
+  it('an empty program is undefined', function() {
+    assert.equal(jsonjs.eval(parse_expr('')), undefined)
+  }),
+  it('an empty statement is undefined', function() {
+    assert.equal(jsonjs.eval(parse_expr(';')), undefined)
+  }),
+  it('an empty block is undefined', function() {
+    assert.equal(jsonjs.eval(parse_expr('{}')), undefined)
+  })
+})
 
 describe('literals', function() {
   it('a numeric literal should return itself', function() {
@@ -40,18 +54,29 @@ describe('bindings', function() {
   it('unbound name should throw a ReferenceError', function () {
     assert.throws(
 	function () { jsonjs.eval(parse_expr('x')) }, ReferenceError)
+  }),
+  it('const assignments are not visible outside a block scope', function () {
+    assert.throws(
+	function () { jsonjs.eval(parse_expr('{ const x = 47 }; x')) }, ReferenceError)
   })
 })
 
 describe('functions', function() {
   it('function definition should create a binding', function () {
-  })
+  }),
   it('calling a function should FIXME', function () {
   })
 })
 
-// // FIXME can use a reference error to test for short circuiting
-// describe('conditionals', function() {
-//   assert.equal(jsonjs.eval(parse_expr('true ? 47 : x')), 47)
-// })
+// FIXME
+describe('conditionals', function() {
+  it('false conditional short circuit on consequent', function()  {
+    // ReferenceError would be raised if no short circuiting
+    assert.equal(jsonjs.eval(parse_expr('false ? x : 47')), 47)
+  }),
+  it('true conditional short circuit on alternate', function()  {
+    // ReferenceError would be raised if no short circuiting
+    assert.equal(jsonjs.eval(parse_expr('true ? 47 : x')), 47)
+  })
+})
 
