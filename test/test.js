@@ -21,6 +21,7 @@ describe('binary expressions', function() {
   it('addition should work on numbers', function () {
     assert.equal(jsonjs.eval(parse_expr('11 + 22')), 33)
   })
+  // FIXME etc
 })
 
 describe('sequence of expressions', function() {
@@ -40,5 +41,17 @@ describe('bindings', function() {
     assert.throws(
 	function () { jsonjs.eval(parse_expr('x')) }, ReferenceError)
   })
-
 })
+
+describe('functions', function() {
+  it('function definition should create a binding', function () {
+  })
+  it('calling a function should FIXME', function () {
+  })
+})
+
+// // FIXME can use a reference error to test for short circuiting
+// describe('conditionals', function() {
+//   assert.equal(jsonjs.eval(parse_expr('true ? 47 : x')), 47)
+// })
+
