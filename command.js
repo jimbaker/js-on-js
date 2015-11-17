@@ -15,8 +15,8 @@ function main() {
   const filename = process.argv[2]
   console.log('Parsing program:', filename)
   const program = fs.readFileSync(filename, 'utf8')
-  const expr = esprima.parse(program).body[0]  // FIXME be able to eval sequence of statements!
-  console.log('Evaluating:', JSON.stringify(expr), null, '  ')
+  const expr = esprima.parse(program) //.body[0]  // FIXME be able to eval sequence of statements!
+  console.log('Evaluating:', JSON.stringify(expr, null, '  '))
   console.log('Result:', jsonjs.eval(expr))
 }
 
