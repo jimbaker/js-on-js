@@ -1,6 +1,6 @@
 {
-  "name": "jsonjs",
-  "version": "1.0.0",
+  "name": "js-on-js",
+  "version": "0.0.1",
   "description": "JavaScript on JavaScript",
   "dependencies" : {
     "esprima": "latest",
@@ -24,7 +24,7 @@
     "url": "https://github.com/jimbaker/js-on-js/issues"
   },
   "bin": {
-    "jsonjs": "index.js"
+    "jsonjs": "./command.js"
   },
   "homepage": "https://github.com/jimbaker/js-on-js",
   "private": true
