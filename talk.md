@@ -2,17 +2,25 @@
 % Jim Baker
 % jim.baker@{python.org, rackspace.com}
 
+besides being much shorter?
+differences - emphasis on FP, math formalism, use of Scala
+similarities - recursion, unit tests
+possible relevance
+
 # Overview
 
-* Exploration in the console, using Node 5
-
-
+* Basics of syntax, semantics and applying to JavaScript
+* Exploration in JS console, using Node 5 - mostly syntax and how to parse
+* Unit tests for the (TDD) win!
+* Corresponding interpreter implementing JS semantics
+* Implement numeric ops, conditionals, assignment, function definition, and recursive call support in 135 LOC
 
 # About me
 
-* Architect at Rackspace
-* Lecturer in CS, CU Boulder
-* Languages I tend to use: Python, Java, Scala, JavaScript
+* Architect at Rackspace, focused on overall platform
+* Lecturer in CS, CU Boulder teaching CSCI 3155
+* Languages I often use: Python, Java, Scala, JavaScript, ...
+* But really just a languages geek!
 * Core developer of Jython
 * Co-author of *Definitive Guide to Jython* from Apress
 * Previous jobs include Canonical (worked on Ubuntu Server), Sauce Labs
@@ -20,34 +28,47 @@
 # JavaScript on JavaScript
 
 * How to parse JavaScript into...
-* ... JSON! (but of course)
+* ... JSON (but of course!)
+* then interpret using a simple evaluation model (big step operational semantics)
+* Use Esprima for parsing, Chai for assertions, Mocha for test discovery & running
 
+# Related projects
+
+* Sandboxing with [JS in JS](https://sns.cs.princeton.edu/2012/04/javascript-in-javascript-js-js-sandboxing-third-party-scripts/)
+* PyPy - Python on Python - used to be 1000x slower, now it can be 20x faster
+* Self-hosting compilers - GNU C, javac (but Hotspot JVM uses C++ at its core), ...
 
 # Credits
 
 * Some aspects based on Principles of Programming Languages (CSCI 3155) at CU Boulder
 * JavaScript interpreter, written for labs developed by Evan Chang at Univ of Colorado, Boulder
-  - Judgment forms to define operational semantics
+  - Judgment forms to define big step AND small step operational semantics
+  - explore dynamic and lexical scoping
+  - adding static typing similar to MS TypeScript
   - Expressed on Scala
-* Modified for this talk to be in terms of unit tests and JavaScript
+* Modified for this talk to be in terms of unit tests and written in JavaScript itself
 
 # ECMAScript 6
 
 Will show ECMAScript 6 (aka ECMAScript 2015, JavaScript 6, ...)
 
-* (Mostly) supported by Chrome 46, Firefox , MS Edge, Node 5
+* [(Mostly) supported](https://kangax.github.io/compat-table/es6/) by Chrome 46, Firefox 44, MS Edge, Node 5
 * Get to use `let`, `const`, along with other great functionality
 * Today's example code may require transpilation, polyfill, or manual changes to use with your needs 
 
-
-# Related projects
-
-* Sandboxing with [JS in JS](https://sns.cs.princeton.edu/2012/04/javascript-in-javascript-js-js-sandboxing-third-party-scripts/)
-* PyPy - Python on Python - used to be 1000x slower, now it can be 20x faster (FIXME check stats)
-* Self-hosting compilers - GNU C, javac (but Hotspot JVM uses C++ at its core), ...
-* FIXME other similar projects; Ouroboros FIXME maybe a picture element here; maybe this could be good for 
+# What is a programming language?
 
 
+# Syntax
+
+* **Shape of the code**
+* Higher order aspects, such as scoping of names
+* e.g. being able to block scope variable assignment (new with `let`, `const`)
+* Dealing with ambiguity - think PEDMAS precedence in middle school arithmetic
+* JavaScript is often called a Lisp with C syntax...
+* and Lisp itself doesn't really have a syntax
+
+# 
 
 # Syntax
 
@@ -68,14 +89,6 @@ FIXME - something simple like math
 FIXME ASTs look like the document object model (DOM), but for the program/script itself
 
 # ASTs are just plain old objects
-
-FIXME which means you can create your own ASTs as well! we will see this become important soon
-
-FIXME maybe cover interfaces?
-
-
-
-# TDD
 
 # Recursion
 
