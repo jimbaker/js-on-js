@@ -34,6 +34,15 @@ describe('binary expressions', function() {
   }),
   it('addition should work on numbers', function () {
     assert.equal(jsonjs.eval(parse_expr('11 + 22')), 33)
+  }),
+  it('subtraction should work on numbers', function () {
+    assert.equal(jsonjs.eval(parse_expr('25 - 16')), 9)
+  }),
+  it('strict equality should work on numbers, when equal', function () {
+    assert.equal(jsonjs.eval(parse_expr('47 === 47')), true)
+  }),
+  it('strict equality should work on numbers, when unequal', function () {
+    assert.equal(jsonjs.eval(parse_expr('47 === 42')), false)
   })
   // FIXME etc
 })
@@ -63,7 +72,7 @@ describe('bindings', function() {
 
 describe('functions', function() {
   it('function definition should create a binding', function () {
-    const func = jsonjs.eval(parse_expr('const x = function() {}; x', true))
+    const func = jsonjs.eval(parse_expr('const x = function() {}; x'))
     assert.equal(func.type, 'FunctionExpression')
     assert.equal(func.body.body.length, 0)  // empty body for this function
   }),
@@ -75,8 +84,19 @@ describe('functions', function() {
   }),
   it('calling a single arg function', function () {
     assert.equal(jsonjs.eval(parse_expr('const add1 = function(x) { return x + 1 }; add1(41)')), 42)
-  })
-  // FIXME recursion; arity > 1
+  }),
+  it('calling a single arg function immediately', function () {
+    assert.equal(jsonjs.eval(parse_expr('(function(x) { return x + 1 })(41)')), 42)
+  }),
+  it('recursive functions work', function () {
+    const expr = parse_expr(
+      'const fact = function(x) {' +
+      '  if (x === 0) { return 1 }' +
+      '  else { return x * fact(x - 1) }' +
+      '};' +
+      'fact(6)')
+    assert.equal(jsonjs.eval(expr), 720)
+  })  
   // FIXME obvious extensions to apply "alpha renaming" and get lexical scope
 })
 
