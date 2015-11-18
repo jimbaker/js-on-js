@@ -53,23 +53,38 @@ describe('bindings', function() {
   }),
   it('unbound name should throw a ReferenceError', function () {
     assert.throws(
-	function () { jsonjs.eval(parse_expr('x')) }, ReferenceError)
+      function () { jsonjs.eval(parse_expr('x')) }, ReferenceError)
   }),
   it('const assignments are not visible outside a block scope', function () {
     assert.throws(
-	function () { jsonjs.eval(parse_expr('{ const x = 47 }; x')) }, ReferenceError)
+      function () { jsonjs.eval(parse_expr('{ const x = 47 }; x')) }, ReferenceError)
   })
 })
 
 describe('functions', function() {
   it('function definition should create a binding', function () {
+    assert.equal(jsonjs.eval(parse_expr('const x = function() {}; x', true)), 47)
   }),
-  it('calling a function should FIXME', function () {
+  it('calling an empty function should return undefined', function () {
+    assert.equal(jsonjs.eval(parse_expr('const x = function() {}; x()', true)), undefined)
+  }),
+  it('calling a no-arg function', function () {
+    assert.equal(jsonjs.eval(parse_expr('const x = function() { return 47 }; x()', true)), 47)
+  }),
+  it('calling a single arg function', function () {
+    assert.equal(jsonjs.eval(parse_expr('const add1 = function(x) { return x + 1 }; add1(41)', true)), 42)
   })
+  // FIXME recursion; arity > 1
+  // FIXME obvious extensions to apply "alpha renaming" and get lexical scope
 })
 
-// FIXME
-describe('conditionals', function() {
+describe('conditional expressions and if statements', function() {
+  it('true conditional only specifies consequent', function()  {
+    assert.equal(jsonjs.eval(parse_expr('if (true) { 47 }')), 47)
+  }),
+  it('false conditional only specifies consequent returns undefined', function()  {
+    assert.equal(jsonjs.eval(parse_expr('if (false) { 47 }')), undefined)
+  }),
   it('false conditional short circuit on consequent', function()  {
     // ReferenceError would be raised if no short circuiting
     assert.equal(jsonjs.eval(parse_expr('false ? x : 47')), 47)
@@ -79,4 +94,3 @@ describe('conditionals', function() {
     assert.equal(jsonjs.eval(parse_expr('true ? 47 : x')), 47)
   })
 })
-
