@@ -117,6 +117,16 @@ describe('conditional expressions and if statements', function () {
   })
 })
 
- 
+describe('unknown expressions', function () {
+  it('unknown expression type should raise an error', function ()  {
+    assert.throws(
+      function () { jsonjs.eval(parse_expr('class Shape {}')) }, jsonjs.InterpreterError)
+  }),
+  it('unknown binary expression operator should raise an error', function ()  {
+    assert.throws(
+      function () { jsonjs.eval(parse_expr('99 % 2')) }, jsonjs.InterpreterError)
+  })
+
+})
 
 
