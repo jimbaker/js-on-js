@@ -2,11 +2,6 @@
 % Jim Baker
 % jim.baker@{python.org, rackspace.com}
 
-besides being much shorter?
-differences - emphasis on FP, math formalism, use of Scala
-similarities - recursion, unit tests
-possible relevance
-
 # Overview
 
 * Basics of syntax, semantics and applying to JavaScript
@@ -23,7 +18,7 @@ possible relevance
 * But really just a languages geek!
 * Core developer of Jython
 * Co-author of *Definitive Guide to Jython* from Apress
-* Previous jobs include Canonical (worked on Ubuntu Server), Sauce Labs
+* Previous jobs include Canonical (worked on Juju), Sauce Labs
 
 # JavaScript on JavaScript
 
@@ -31,6 +26,28 @@ possible relevance
 * ... JSON (but of course!)
 * then interpret using a simple evaluation model (big step operational semantics)
 * Use Esprima for parsing, Chai for assertions, Mocha for test discovery & running
+
+# Or just use `eval`
+
+Built into JavaScript, since the very beginning (at least 1996):
+
+```javascript
+eval('6 * 7')
+```
+
+# Or just use `eval`
+
+Does show what we could support:
+
+```javascript
+eval('(function (x) { return x + 1 })(8)')
+```
+
+# Or just use `eval`
+
+* Great way to introduce cross site scripting (XSS) attacks on your site, if you use `eval` with untrusted text!
+* But JSON was successful in part because `eval(someJSON)` worked - and worked very efficiently
+* Key observation by Douglas Crockford (the "good parts")
 
 # Related projects
 
@@ -58,6 +75,14 @@ Will show ECMAScript 6 (aka ECMAScript 2015, JavaScript 6, ...)
 
 # What is a programming language?
 
+* PLs are systems in which we can write programs/code/...
+* Well-defined (more or less!) what we will get
+* And we can collaborate on - we can read code together, make changes, "fork me on GitHub"
+
+# Key aspects
+
+* Syntax
+* Semantics
 
 # Syntax
 
@@ -68,9 +93,11 @@ Will show ECMAScript 6 (aka ECMAScript 2015, JavaScript 6, ...)
 * JavaScript is often called a Lisp with C syntax...
 * and Lisp itself doesn't really have a syntax
 
-# 
+# Semantics
 
-# Syntax
+* Functional, imperative, declarative, logical, ...
+* Concurrency, mutation, software transactional memory, ... pick your favorite
+* As constrained (or not) by typing (static, dynamic, gradual)
 
 # Node console
 
@@ -79,8 +106,6 @@ Install standard parser package
 ```bash
 $ npm install esprima
 ```
-
-# Semantics
 
 # Abstract Syntax Trees (ASTs)
 
@@ -118,7 +143,7 @@ const esprima = require('esprima')
 
 The body of a program is a sequence of statements:
 
-```
+```javascript
 > esprima.parse('6 * 7')
 { type: 'Program',
   body: [ { type: 'ExpressionStatement', expression: [Object] } ],
@@ -161,6 +186,12 @@ console.log(JSON.stringify(esprima.parse('6*7'), null, '  '))
   "sourceType": "script"
 }
 ```
+
+# Recommedation
+
+Go simple:
+
+
 
 # AST of an anonymous function being defined
 
