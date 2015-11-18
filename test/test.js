@@ -1,4 +1,4 @@
-const assert = require('assert'),
+const assert = require('chai').assert,
       esprima = require('esprima'),
       jsonjs = require('../lib')
 
