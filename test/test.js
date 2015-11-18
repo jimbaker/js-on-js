@@ -2,9 +2,9 @@ const assert = require('chai').assert,
       esprima = require('esprima'),
       jsonjs = require('../lib')
 
-function parse_expr(text, do_log) {
+function parse_expr(text, logExpr) {
   var expr = esprima.parse(text)
-  if (do_log) {
+  if (logExpr) {
     console.log("expr", JSON.stringify(expr, null, '  '))
   } 
   return expr
@@ -63,16 +63,18 @@ describe('bindings', function() {
 
 describe('functions', function() {
   it('function definition should create a binding', function () {
-    assert.equal(jsonjs.eval(parse_expr('const x = function() {}; x', true)), 47)
+    const func = jsonjs.eval(parse_expr('const x = function() {}; x', true))
+    assert.equal(func.type, 'FunctionExpression')
+    assert.equal(func.body.body.length, 0)  // empty body for this function
   }),
   it('calling an empty function should return undefined', function () {
-    assert.equal(jsonjs.eval(parse_expr('const x = function() {}; x()', true)), undefined)
+    assert.equal(jsonjs.eval(parse_expr('const x = function() {}; x()')), undefined)
   }),
   it('calling a no-arg function', function () {
-    assert.equal(jsonjs.eval(parse_expr('const x = function() { return 47 }; x()', true)), 47)
+    assert.equal(jsonjs.eval(parse_expr('const x = function() { return 47 }; x()')), 47)
   }),
   it('calling a single arg function', function () {
-    assert.equal(jsonjs.eval(parse_expr('const add1 = function(x) { return x + 1 }; add1(41)', true)), 42)
+    assert.equal(jsonjs.eval(parse_expr('const add1 = function(x) { return x + 1 }; add1(41)')), 42)
   })
   // FIXME recursion; arity > 1
   // FIXME obvious extensions to apply "alpha renaming" and get lexical scope
