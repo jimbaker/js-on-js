@@ -5,20 +5,40 @@
 # Overview
 
 * Exploration in the console, using Node 5
-* Prereqs: install with `npm install esprima`
 
 
-# Credits!
 
+# About me
+
+* Architect at Rackspace
+* Lecturer in CS, CU Boulder
+* Languages I tend to use: Python, Java, Scala, JavaScript
+* Core developer of Jython
+* Co-author of *Definitive Guide to Jython* from Apress
+* Previous jobs include Canonical (worked on Ubuntu Server), Sauce Labs
+
+# JavaScript on JavaScript
+
+* How to parse JavaScript into...
+* ... JSON! (but of course)
+
+
+# Credits
+
+* Some aspects based on Principles of Programming Languages (CSCI 3155) at CU Boulder
 * JavaScript interpreter, written for labs developed by Evan Chang at Univ of Colorado, Boulder
   - Judgment forms to define operational semantics
   - Expressed on Scala
 * Modified for this talk to be in terms of unit tests and JavaScript
 
-# EcmaScript 6
+# ECMAScript 6
 
-* Supported by Chrome 46, Firefox FIXME, Edge FIXME, Node 5
-* Get to use `let`, `const`, other fun functionality
+Will show ECMAScript 6 (aka ECMAScript 2015, JavaScript 6, ...)
+
+* (Mostly) supported by Chrome 46, Firefox , MS Edge, Node 5
+* Get to use `let`, `const`, along with other great functionality
+* Today's example code may require transpilation, polyfill, or manual changes to use with your needs 
+
 
 # Related projects
 
@@ -27,7 +47,17 @@
 * Self-hosting compilers - GNU C, javac (but Hotspot JVM uses C++ at its core), ...
 * FIXME other similar projects; Ouroboros FIXME maybe a picture element here; maybe this could be good for 
 
+
+
 # Syntax
+
+# Node console
+
+Install standard parser package
+
+```bash
+$ npm install esprima
+```
 
 # Semantics
 
